@@ -19,7 +19,7 @@
       <module>alpr-extract</module>
       <module>alpr-api</module>
       <module>alpr-charrec</module>
-      <module>alpr-image-proessing</module>
+      <module>alpr-image-processing</module>
       <module>alpr-sample-images</module>
       <module>alpr-segment</module>
    </modules>
@@ -28,13 +28,8 @@
       <maven>3.2.1</maven>
    </prerequisites>
 
-   <!--
-   <scm>
-      <developerConnection>scm:git:ssh://git@git.kdo.de:8443/dta/kdomft.git</developerConnection>
-      <url>http://somerepository.com</url>
-      <tag>HEAD</tag>
-   </scm>
-   -->
+   <!-- <scm> <developerConnection>scm:git:ssh://git@git.kdo.de:8443/dta/kdomft.git</developerConnection> 
+      <url>http://somerepository.com</url> <tag>HEAD</tag> </scm> -->
 
    <build>
 

@@ -43,8 +43,33 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
-            <groupId>de.mfthub</groupId>
+            <groupId>de.pr.alpr</groupId>
+            <artifactId>alpr-api</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>de.pr.alpr</groupId>
+            <artifactId>alpr-charrec</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>de.pr.alpr</groupId>
             <artifactId>alpr-extract</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>de.pr.alpr</groupId>
+            <artifactId>alpr-image-processing</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>de.pr.alpr</groupId>
+            <artifactId>alpr-sample-images</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>de.pr.alpr</groupId>
+            <artifactId>alpr-segment</artifactId>
             <version>${project.version}</version>
          </dependency>
       </dependencies>
