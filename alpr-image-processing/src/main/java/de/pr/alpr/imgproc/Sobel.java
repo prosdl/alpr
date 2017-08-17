@@ -24,7 +24,7 @@ public class Sobel {
    public static final Matrix S_Y = S_X.transpose();
 
    public static void main(String[] args) throws IOException {
-      BufferedImage im = ImageIO.read(new File("/tmp/foo.jpg"));
+      BufferedImage im = ImageIO.read(new File("/tmp/gray.bmp"));
       BufferedImage out = new BufferedImage(im.getWidth(), im.getHeight(), BufferedImage.TYPE_INT_RGB);
 
       int height = im.getHeight();
@@ -60,6 +60,6 @@ public class Sobel {
             out.setRGB(x, y, new ARGB(0, gradient, gradient, gradient).toTypeIntRgb());
          }
       }
-      ImageIO.write(out, "jpg", new File("/tmp/sobel.jpg"));
+      ImageIO.write(out, "jpg", new File("/tmp/sobel.bmp"));
    }
 }

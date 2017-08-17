@@ -28,7 +28,7 @@ public class Thresholding {
    }
 
    public static void main(String... args) throws IOException {
-      BufferedImage im = ImageIO.read(new File("/tmp/sobel.jpg"));
+      BufferedImage im = ImageIO.read(new File("/tmp/sobel.bmp"));
       final int threshold = 20;
 
       ImageProducer producer = new FilteredImageSource(im.getSource(), new ThresholdFilter(threshold));
@@ -36,6 +36,6 @@ public class Thresholding {
 
       BufferedImage bufferedImage = new BufferedImage(binary.getWidth(null), binary.getHeight(null), BufferedImage.TYPE_INT_RGB);
       bufferedImage.getGraphics().drawImage(binary, 0, 0, null);
-      ImageIO.write(bufferedImage, "jpg", new File("/tmp/binary.jpg"));
+      ImageIO.write(bufferedImage, "jpg", new File("/tmp/binary.bmp"));
    }
 }
