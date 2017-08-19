@@ -1,4 +1,4 @@
-package de.pr.alpr.imgproc;
+package de.pr.alpr.imgproc.math;
 
 import java.util.Arrays;
 

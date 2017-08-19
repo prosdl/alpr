@@ -1,17 +1,18 @@
-package de.pr.alpr.imgproc;
+package de.pr.alpr.imgproc.transform.impl;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.math.RoundingMode;
-
-import javax.imageio.ImageIO;
 
 import com.google.common.math.IntMath;
 
-import de.pr.alpr.imgproc.RgbConvert.ARGB;
+import de.pr.alpr.imgproc.imgutil.RgbConvert;
+import de.pr.alpr.imgproc.imgutil.RgbConvert.ARGB;
+import de.pr.alpr.imgproc.math.Matrix;
+import de.pr.alpr.imgproc.transform.Transformation;
+import lombok.extern.slf4j.Slf4j;
 
-public class Sobel {
+@Slf4j
+public class Sobel implements Transformation {
 
    /**
     * Sobel edge operator x-Richtung.
@@ -23,8 +24,8 @@ public class Sobel {
     */
    public static final Matrix S_Y = S_X.transpose();
 
-   public static void main(String[] args) throws IOException {
-      BufferedImage im = ImageIO.read(new File("/tmp/gray.bmp"));
+   @Override
+   public BufferedImage process(BufferedImage im) {
       BufferedImage out = new BufferedImage(im.getWidth(), im.getHeight(), BufferedImage.TYPE_INT_RGB);
 
       int height = im.getHeight();
@@ -49,17 +50,15 @@ public class Sobel {
             int gx = S_X.convolution(imMatrix);
             int gy = S_Y.convolution(imMatrix);
             int gradient = IntMath.sqrt(gx * gx + gy * gy, RoundingMode.HALF_DOWN);
-            // System.out.println(gradient);
-            // if (c > 100) {
-            // System.exit(0);
-            // }
-            if (c % 1000 == 0) {
-               System.out.println(100.0 * y / height);
-            }
+
+            if (log.isDebugEnabled())
+               if (c % 1000 == 0) {
+                  log.debug("completion: {}%", 100.0 * y / height);
+               }
             c++;
             out.setRGB(x, y, new ARGB(0, gradient, gradient, gradient).toTypeIntRgb());
          }
       }
-      ImageIO.write(out, "jpg", new File("/tmp/sobel.bmp"));
+      return out;
    }
 }

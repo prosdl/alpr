@@ -1,10 +1,12 @@
-package de.pr.alpr.imgproc;
+package de.pr.alpr.imgproc.math;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import de.pr.alpr.imgproc.math.Matrix;
+import de.pr.alpr.imgproc.transform.impl.Sobel;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

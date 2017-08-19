@@ -1,26 +1,28 @@
-package de.pr.alpr.imgproc;
+package de.pr.alpr.imgproc.transform.impl;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import javax.imageio.ImageIO;
-
 import com.google.common.math.IntMath;
 
+import de.pr.alpr.imgproc.transform.Transformation;
+import lombok.NoArgsConstructor;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
-public class HoughTransform {
-   final int thetaSteps = 180;
+@NoArgsConstructor
+@Slf4j
+public class HoughTransform implements Transformation {
+   int thetaSteps = 360;
    private double cachedCos[] = new double[thetaSteps];
    private double cachedSin[] = new double[thetaSteps];
+   private double scale = 1.0;
 
    @Value
    public static class HoughCoordinate implements Comparable<HoughCoordinate> {
@@ -81,22 +83,22 @@ public class HoughTransform {
       }
    }
 
-   public void go() throws IOException {
-      BufferedImage im = ImageIO.read(new File("/tmp/binary.bmp"));
+   @Override
+   public BufferedImage process(BufferedImage im) {
       BufferedImage out = new BufferedImage(im.getWidth(), im.getHeight(), BufferedImage.TYPE_INT_RGB);
 
       final int xMax = im.getWidth();
       final int yMax = im.getHeight();
       int rMax = IntMath.sqrt(yMax * yMax + xMax * xMax, RoundingMode.CEILING);
 
-      Accumulator acc = new Accumulator(rMax, thetaSteps, 1.0);
+      Accumulator acc = new Accumulator(rMax, thetaSteps, scale);
 
       int c = 0;
       warmCache();
       for (int x = 0; x < xMax; x++) {
          for (int y = 0; y < yMax; y++) {
             int h = im.getRGB(x, y) & 0xff;
-            if (h > 0) {
+            if (h > 250) {
                for (int thetaStep = 0; thetaStep < thetaSteps; thetaStep++) {
                   int r = (int) Math.rint(x * cachedCos[thetaStep] + y * cachedSin[thetaStep]);
                   acc.vote(thetaStep, r);
@@ -104,8 +106,12 @@ public class HoughTransform {
 
             }
             c++;
-            if (c % 1000 == 0) {
-               System.out.println(100.0 * c / xMax / yMax);
+
+            if (log.isDebugEnabled()) {
+               final int percStep = xMax * yMax / 100;
+               if (c % percStep == 0) {
+                  System.out.println(100.0 * c / xMax / yMax);
+               }
             }
          }
       }
@@ -124,7 +130,7 @@ public class HoughTransform {
       BasicStroke bs = new BasicStroke(1);
       g2d.setStroke(bs);
       Iterator<HoughCoordinate> it = s.iterator();
-      for (int i = 0; i < 50; i++) {
+      for (int i = 0; i < 100; i++) {
          if (!it.hasNext()) {
             break;
          }
@@ -160,11 +166,12 @@ public class HoughTransform {
 
       }
 
-      ImageIO.write(out, "jpg", new File("/tmp/hough.jpg"));
-
+      return out;
    }
 
-   public static void main(String[] args) throws IOException {
-      new HoughTransform().go();
+   public HoughTransform(int thetaSteps, double scale) {
+      super();
+      this.thetaSteps = thetaSteps;
+      this.scale = scale;
    }
 }

@@ -1,4 +1,4 @@
-package de.pr.alpr.imgproc;
+package de.pr.alpr.imgproc.imgutil;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
