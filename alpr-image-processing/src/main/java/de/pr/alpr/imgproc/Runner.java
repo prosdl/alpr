@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+
+import com.google.common.base.Stopwatch;
 
 import de.pr.alpr.imgproc.transform.Transformation;
 import de.pr.alpr.imgproc.transform.impl.Grayscale;
@@ -37,10 +40,13 @@ public class Runner {
          }
 
          log.info("step {} - running ... {}", count, t.getName());
+         Stopwatch watch = Stopwatch.createStarted();
          im = t.process(im);
-
+         double time = watch.elapsed(TimeUnit.MILLISECONDS) / 1000.0;
+         log.info("step {} - finished ... {} ... {} secs", count, t.getName(), time);
       }
       ImageIO.write(im, outputFile.substring(outputFile.lastIndexOf('.') + 1), new File(outputFile));
+
    }
 
    public static void main(String[] args) throws IOException {

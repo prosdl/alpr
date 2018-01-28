@@ -16,6 +16,10 @@ public class RgbConvert {
          blue = (rgb) & 0xFF;
       }
 
+      public static ARGB ofGrayscale(int val) {
+         return new ARGB(0, val, val, val);
+      }
+
       public int toTypeIntArgb() {
          return (alpha << 24) | (red << 16) | (green << 8) | blue;
       }
