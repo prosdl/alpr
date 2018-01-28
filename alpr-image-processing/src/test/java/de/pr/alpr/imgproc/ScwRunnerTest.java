@@ -8,7 +8,7 @@ import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 
 import de.pr.alpr.imgproc.transform.impl.Grayscale;
-import de.pr.alpr.imgproc.transform.impl.StandardDeviation;
+import de.pr.alpr.imgproc.transform.impl.SCW;
 import de.pr.alpr.samples.Samples;
 
 public class ScwRunnerTest {
@@ -29,7 +29,8 @@ public class ScwRunnerTest {
                .outputFile("/tmp/scw" + s.name() + ".jpg")//
                .transformation(new Grayscale(10))//
                // .transformation(new Mean(2, 2))//
-               .transformation(new StandardDeviation(2, 2))//
+               // .transformation(new StandardDeviation(4, 2))//
+               .transformation(new SCW())//
                .build()//
                .runTransformations();
       }
