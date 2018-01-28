@@ -29,7 +29,7 @@ public class Thresholding implements Transformation {
       }
    }
 
-   private int threshold = 25;
+   private int threshold = 100;
 
    @Override
    public BufferedImage process(BufferedImage im) {

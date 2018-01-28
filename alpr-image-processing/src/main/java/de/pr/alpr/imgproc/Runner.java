@@ -44,14 +44,16 @@ public class Runner {
    }
 
    public static void main(String[] args) throws IOException {
-      Runner.builder()//
-            .inputStream(Samples.CAR001.asClassPathResource().getInputStream())//
-            .outputFile("/tmp/car001.jpg")//
-            .transformation(new Grayscale(30))//
-            .transformation(new Sobel())//
-            .transformation(new Thresholding(25))//
-            .transformation(new HoughTransform(180, 1.0))//
-            .build()//
-            .runTransformations();
+      for (Samples s : Samples.values()) {
+         Runner.builder()//
+               .inputStream(s.asClassPathResource().getInputStream())//
+               .outputFile("/tmp/" + s.name() + ".jpg")//
+               .transformation(new Grayscale(10))//
+               .transformation(new Sobel())//
+               .transformation(new Thresholding(30))//
+               .transformation(new HoughTransform(90, 1.0))//
+               .build()//
+               .runTransformations();
+      }
    }
 }
