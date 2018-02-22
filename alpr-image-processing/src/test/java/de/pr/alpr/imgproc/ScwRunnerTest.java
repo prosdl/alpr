@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 
+import de.pr.alpr.imgproc.transform.impl.GaussianBlur;
 import de.pr.alpr.imgproc.transform.impl.Grayscale;
 import de.pr.alpr.imgproc.transform.impl.SauvolaAdaptiveThresholding;
 import de.pr.alpr.samples.Samples;
@@ -28,6 +29,7 @@ public class ScwRunnerTest {
                .inputStream(s.asClassPathResource().getInputStream())//
                .outputFile("/tmp/scw" + s.name() + ".jpg")//
                .transformation(new Grayscale(10))//
+               .transformation(new GaussianBlur(3))//
                // .transformation(new Mean(2, 2))//
                // .transformation(new StandardDeviation(4, 2))//
                // .transformation(new SCW())//

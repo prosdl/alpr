@@ -41,7 +41,7 @@ public class SauvolaAdaptiveThresholding implements Transformation {
             final double val = im.getRGB(x, y) & 0xff;
 
             double t = m * (1.0 + (1 + (k * s / r - 1.0)));
-            if (val >= t) {
+            if (val < t) {
                out.setRGB(x, y, ARGB.ofGrayscale(255).toTypeIntRgb());
             }
          }
