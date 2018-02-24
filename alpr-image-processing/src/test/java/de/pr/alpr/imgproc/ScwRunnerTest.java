@@ -33,7 +33,7 @@ public class ScwRunnerTest {
                // .transformation(new Mean(2, 2))//
                // .transformation(new StandardDeviation(4, 2))//
                // .transformation(new SCW())//
-               .transformation(new SauvolaAdaptiveThresholding())//
+               .transformation(new SauvolaAdaptiveThresholding(10, 2, 256.0, 0.25))//
                .transformation(new ConnectedComponents())//
                .build()//
                .runTransformations();
